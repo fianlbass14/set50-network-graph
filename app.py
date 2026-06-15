@@ -11,12 +11,12 @@ plt.rcParams['axes.unicode_minus'] = False
 # 1. ตั้งค่าหน้าจอ UI ของ Streamlit
 # ==========================================
 st.set_page_config(page_title="SET50 Shareholder Network", layout="wide")
-st.title("📊 SET50 Shareholder Network Analysis (100% English Graph Fixed)")
-st.write("วิเคราะห์โครงสร้างเครือข่ายผู้ถือหุ้นรายใหญ่ 5 อันดับแรกของ SET50 (แก้ไขปัญหาตัวอักษรสี่เหลี่ยมบน Server สำเร็จ)")
+st.title("📊 SET50 Shareholder Network Analysis")
+st.write("วิเคราะห์โครงสร้างเครือข่ายผู้ถือหุ้นรายใหญ่ 5 อันดับแรกของ SET50")
 
 # ฟังก์ชันสำหรับแปลชื่อผู้ถือหุ้นกลุ่มสีส้มทั้งหมดให้เป็นอังกฤษ และจัดการกลุ่มสีเขียวไม่ให้เป็นสี่เหลี่ยม
 def translate_to_english(name, index_num):
-    # Dictionary แปลชื่อกลุ่มส้ม (>= 2 บริษัท) ครบทุกชื่อในไฟล์ CSV ของคุณ
+    # Dictionary แปลชื่อกลุ่มส้ม (>= 2 บริษัท) 
     translation_map = {
         "บริษัท ไทยเอ็นวีดีอาร์ จำกัด": "Thai NVDR Co., Ltd.",
         "กองทุนรวม วายุภักษ์หนึ่ง": "Vayupak Fund 1",
@@ -45,7 +45,7 @@ def translate_to_english(name, index_num):
     if name in translation_map:
         return translation_map[name]
         
-    # 2. ถ้าเป็นภาษาอังกฤษอยู่แล้ว (เช่น ชื่อกองทุนต่างประเทศ) ให้ใช้ชื่อเดิมได้เลย ไม่เป็นสี่เหลี่ยมแน่นอน
+    # 2. ถ้าเป็นภาษาอังกฤษอยู่แล้ว (เช่น ชื่อกองทุนต่างประเทศ) ให้ใช้ชื่อเดิม
     if all(ord(char) < 128 for char in name):
         return name
         
@@ -94,7 +94,7 @@ if not df.empty:
     multi_holders_list = [node for node, count in shareholder_counts.items() if node not in companies and count >= 2]
     single_holders_list = [node for node, count in shareholder_counts.items() if node not in companies and count == 1]
 
-    # สร้างตารางข้อมูลจับคู่ชื่อไทย-อังกฤษ เพื่อให้ตารางฝั่งซ้ายแสดงผลควบคู่กันอย่างสวยงาม
+    # สร้างตารางข้อมูลจับคู่ชื่อไทย-อังกฤษ 
     mapping_df = df[['shareholder_name', 'shareholder_en']].drop_duplicates().set_index('shareholder_en')
 
     df_analysis = pd.DataFrame([
@@ -158,7 +158,7 @@ if not df.empty:
     plt.clf()
     fig, ax = plt.subplots(figsize=(16, 12))
     
-    # คำนวณพิกัด Layout กราฟแบบแรงผลักสปริง
+    # คำนวณพิกัด Layout 
     pos = nx.spring_layout(G, k=0.55, seed=42)
     
     node_colors = []
@@ -175,7 +175,7 @@ if not df.empty:
             node_sizes.append(400)
             
     if len(G.nodes()) > 0:
-        # วาดองค์ประกอบทั้งหมดโดยใช้ฟอนต์สากล sans-serif ปราศจากกล่องสี่เหลี่ยม 100%
+        # วาดองค์ประกอบทั้งหมดโดยใช้ฟอนต์สากล sans-serif ปราศจากกล่องสี่เหลี่ยม 
         nx.draw_networkx_nodes(G, pos, node_color=node_colors, node_size=node_sizes, ax=ax)
         nx.draw_networkx_edges(G, pos, edge_color='lightgray', alpha=0.6, width=1.2, ax=ax)
         nx.draw_networkx_labels(G, pos, font_size=9, font_family='sans-serif', font_weight='bold', ax=ax)
