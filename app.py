@@ -11,8 +11,8 @@ plt.rcParams['axes.unicode_minus'] = False
 # 1. ตั้งค่าหน้าจอ UI ของ Streamlit
 # ==========================================
 st.set_page_config(page_title="SET50 Shareholder Network", layout="wide")
-st.title("📊 SET50 Shareholder Network Analysis (CSV Mode)")
-st.write("วิเคราะห์โครงสร้างเครือข่ายความสัมพันธ์ผู้ถือหุ้นรายใหญ่ 5 อันดับแรกของดัชนี SET50 (เวอร์ชันรองรับการแสดงผลบน Server)")
+st.title("📊 SET50 Shareholder Network Analysis")
+st.write("วิเคราะห์โครงสร้างเครือข่ายความสัมพันธ์ผู้ถือหุ้นรายใหญ่ 5 อันดับแรกของดัชนี SET50")
 
 # ฟังก์ชันสำหรับแปลงชื่อผู้ถือหุ้นไทยรายใหญ่ให้เป็นภาษาอังกฤษเพื่อการวาดกราฟที่สมบูรณ์
 def translate_to_english(name):
